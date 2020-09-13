@@ -92,17 +92,17 @@ $(function() {
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
-                console.log(json);
-                // location.href = "../home/index.html";
+                if (json.status) {
+                    location.href = "../home/index.html";
+                }
             }
         };
         console.log($('#pass').val())
         if ($('#pass').val() == "" || $('#user').val() == "") {
-            console.log("23456789")
             return;
         }
 
-        var data = JSON.stringify({ "user": $('#user'), "pass": $('#pass').val() });
+        var data = JSON.stringify({ "user": $('#user').val(), "pass": $('#pass').val() });
         console.log(data)
         xhr.send(data);
     });
@@ -116,7 +116,9 @@ $(function() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
                 console.log(json);
-                //location.href = "../home/index.html";
+                if (json.status) {
+                    location.href = "../home/index.html";
+                }
             }
         };
 

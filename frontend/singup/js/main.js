@@ -84,10 +84,9 @@ snap.addEventListener("click", function() {
 });
 
 $(function() {
-
     $('#ejecutar').click(function() {
         var xhr = new XMLHttpRequest();
-        var url = "http://18.212.82.46:3000/api/registerStudent";
+        var url = "http://18.212.82.46:3000/api/signin";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
