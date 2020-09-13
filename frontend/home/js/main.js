@@ -1,3 +1,20 @@
+function convertImgToBase64(url, callback, outputFormat) {
+    var canvas = document.createElement('CANVAS');
+    var ctx = canvas.getContext('2d');
+    var img = new Image;
+    img.crossOrigin = 'Anonymous';
+    img.onload = function() {
+        canvas.height = img.height;
+        canvas.width = img.width;
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL(outputFormat || 'image/png');
+        callback.call(this, dataURL);
+        // Clean up
+        canvas = null;
+    };
+    img.src = url;
+}
+
 $(function() {
     $("#form-total").steps({
         headerTag: "h2",
@@ -32,16 +49,15 @@ $(function() {
                 console.log(json);
             }
         };
-
         if ($('#user').val() == "") {
+
             return;
         }
-
         var data = JSON.stringify({ "id": $('#user').val(), "imagen": sourcebase64.split(",")[1] });
         xhr.send(data);
 
         var xhr2 = new XMLHttpRequest();
-        var url2 = "https://t8gc9ume1m.execute-api.us-east-2.amazonaws.com/test3/carga";
+        var url2 = "https://t8gc9ume1m.execute-api.us-east-2.amazonaws.com/test3/asistencia";
         xhr2.open("POST", url2, true);
         xhr2.setRequestHeader("Content-Type", "application/json");
         xhr2.onreadystatechange = function() {
@@ -52,12 +68,13 @@ $(function() {
         };
 
         var data2 = JSON.stringify({ "grupo": { "id": $('#user').val(), "imagen": sourcebase64.split(",")[1], "ruta": ruta }, "estudiantes": estudiantes });
+
         xhr2.send(data2);
     });
 
     $('#guardarEstudiantes').click(function() {
         var xhr = new XMLHttpRequest();
-        var url = "http://18.212.82.46:3000/api/registerStudent";
+        var url = "http://18.212.82.46/api/registerStudent";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
@@ -118,6 +135,7 @@ xhr.onreadystatechange = function() {
             images += `<img width="150" height="150"  label="dfghjk" src="https://pro1-images-grupo21.s3.amazonaws.com/` + image.imagen + `" height="33%">`;
             images += `<h3>` + image.id + `</h3>`;
             images += "</lo>"
+
         });
 
         document.getElementById('imgGroups').innerHTML = images + "</ul>";
@@ -126,7 +144,7 @@ xhr.onreadystatechange = function() {
 xhr.send('');
 
 var xhr2 = new XMLHttpRequest();
-var url2 = "http://18.212.82.46:3000/api/getStudents";
+var url2 = "http://18.212.82.46/api/getStudents";
 xhr2.open("GET", url2, true);
 xhr2.setRequestHeader("Content-Type", "application/json");
 let images2 = '<ul>';
@@ -140,14 +158,15 @@ xhr2.onreadystatechange = function() {
             images2 += "</lo>"
 
             let canvas2 = document.createElement('canvas');
-            // Set width and height
-            canvas2.width = 200;
-            canvas2.height = 200;
-            // Draw the image
+            var context = canvas2.getContext('2d');
+            canvas2.getContext('2d');
 
-            estudiantes.push({ "id": item.id, "imagen": canvas2.toDataURL(item.imagen), "ruta": item.imagen });
+            estudiantes.push({ "id": item.id.S, "imagen": canvas2.toDataURL(item.imagen.S).split(",")[1], "ruta": item.imagen.S });
+
         });
+        console.log(json.data.Items)
         document.getElementById('imgUsers').innerHTML = images2 + "</ul>";
+
     }
 };
 xhr2.send('');
@@ -161,41 +180,41 @@ let images3 = '<table class="egt">' +
 xhr3.onreadystatechange = function() {
     if (xhr3.readyState === 4 && xhr3.status === 200) {
         var json = JSON.parse(xhr3.responseText);
+        /*
+                json.body.Items.forEach(item => {
+                    images3 += `<th>` + `<a href=https://pro1-images-grupo21.s3.amazonaws.com/"` +
+                        item.grupo.ruta + `">` + item.grupo.id + `</a></th>` +
+                        "</tr>" +
+                        "<tr>" +
+                        "<th>" +
+                        "Estudiantes" +
+                        "</th>" +
+                        "<th>" +
+                        "Imagen Estudiantes" +
+                        "</th>" +
+                        "<th>" +
+                        "Asistio" +
+                        "</th>" +
+                        "</tr>"
+                    item.estudiantes.forEach(est => {
+                        images3 += "<tr>"
+                        images3 += "<th>"
+                        images3 += est.id
+                        images3 += "</th>"
+                        images3 += "<th>"
+                        images3 += `<a href=https://pro1-images-grupo21.s3.amazonaws.com/"` +
+                            est.ruta + `">ver</a>`
+                        images3 += "</th>"
+                        images3 += "<th>"
+                        images3 += est.asistencia
+                        images3 += "</th>"
+                        images3 += "</tr>"
 
-        json.body.Items.forEach(item => {
-            images3 += `<th>` + `<a href=https://pro1-images-grupo21.s3.amazonaws.com/"` +
-                item.grupo.ruta + `">` + item.grupo.id + `</a></th>` +
-                "</tr>" +
-                "<tr>" +
-                "<th>" +
-                "Estudiantes" +
-                "</th>" +
-                "<th>" +
-                "Imagen Estudiantes" +
-                "</th>" +
-                "<th>" +
-                "Asistio" +
-                "</th>" +
-                "</tr>"
-            item.estudiantes.forEach(est => {
-                images3 += "<tr>"
-                images3 += "<th>"
-                images3 += est.id
-                images3 += "</th>"
-                images3 += "<th>"
-                images3 += `<a href=https://pro1-images-grupo21.s3.amazonaws.com/"` +
-                    est.ruta + `">ver</a>`
-                images3 += "</th>"
-                images3 += "<th>"
-                images3 += est.asistencia
-                images3 += "</th>"
-                images3 += "</tr>"
-
-            });
-            images3 += "<br><br><br>"
-        });
-
-        document.getElementById('asistTable').innerHTML = images3 + "</table>";
+                    });
+                    images3 += "<br><br><br>"
+                });
+        */
+        //    document.getElementById('asistTable').innerHTML = images3 + "</table>";
     }
 };
 xhr3.send('');

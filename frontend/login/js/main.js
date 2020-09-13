@@ -86,7 +86,7 @@ $(function() {
 
     $('#login1').click(function() {
         var xhr = new XMLHttpRequest();
-        var url = "http://18.212.82.46:3000/api/login";
+        var url = "http://18.212.82.46/api/login";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
@@ -109,7 +109,7 @@ $(function() {
 
     $('#login2').click(function() {
         var xhr = new XMLHttpRequest();
-        var url = "http://18.212.82.46:3000/api/login";
+        var url = "http://18.212.82.46/api/login";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
