@@ -57,7 +57,7 @@ $(function() {
         xhr.send(data);
 
         var xhr2 = new XMLHttpRequest();
-        var url2 = "https://t8gc9ume1m.execute-api.us-east-2.amazonaws.com/test3/asistencia";
+        var url2 = "https://ypmaohrq61.execute-api.us-east-1.amazonaws.com/test/asistencia";
         xhr2.open("POST", url2, true);
         xhr2.setRequestHeader("Content-Type", "application/json");
         xhr2.onreadystatechange = function() {
@@ -67,7 +67,7 @@ $(function() {
             }
         };
 
-        var data2 = JSON.stringify({ "grupo": { "id": $('#user').val(), "imagen": sourcebase64.split(",")[1], "ruta": ruta }, "estudiantes": estudiantes });
+        var data2 = JSON.stringify({ "grupo": { "id": $('#user').val(), "imagen": sourcebase64, "ruta": "https://pro1-images-grupo21.s3.amazonaws.com/grupos/" + $('#user').val() + ".jpg" }, "estudiantes": estudiantes });
 
         xhr2.send(data2);
     });
@@ -172,49 +172,55 @@ xhr2.onreadystatechange = function() {
 xhr2.send('');
 
 var xhr3 = new XMLHttpRequest();
-var url3 = "https://t8gc9ume1m.execute-api.us-east-2.amazonaws.com/test3/s3/obtenerimagenes";
+var url3 = "https://ypmaohrq61.execute-api.us-east-1.amazonaws.com/test/asistencia";
 xhr3.open("GET", url3, true);
 xhr3.setRequestHeader("Content-Type", "application/json");
-let images3 = '<table class="egt">' +
-    "<tr>";
+let images3 = '<ul>'
 xhr3.onreadystatechange = function() {
     if (xhr3.readyState === 4 && xhr3.status === 200) {
         var json = JSON.parse(xhr3.responseText);
-        /*
-                json.body.Items.forEach(item => {
-                    images3 += `<th>` + `<a href=https://pro1-images-grupo21.s3.amazonaws.com/"` +
-                        item.grupo.ruta + `">` + item.grupo.id + `</a></th>` +
-                        "</tr>" +
-                        "<tr>" +
-                        "<th>" +
-                        "Estudiantes" +
-                        "</th>" +
-                        "<th>" +
-                        "Imagen Estudiantes" +
-                        "</th>" +
-                        "<th>" +
-                        "Asistio" +
-                        "</th>" +
-                        "</tr>"
-                    item.estudiantes.forEach(est => {
-                        images3 += "<tr>"
-                        images3 += "<th>"
-                        images3 += est.id
-                        images3 += "</th>"
-                        images3 += "<th>"
-                        images3 += `<a href=https://pro1-images-grupo21.s3.amazonaws.com/"` +
-                            est.ruta + `">ver</a>`
-                        images3 += "</th>"
-                        images3 += "<th>"
-                        images3 += est.asistencia
-                        images3 += "</th>"
-                        images3 += "</tr>"
+        console.log("---------------------")
+        console.log(json)
+        console.log("---------------------")
 
-                    });
-                    images3 += "<br><br><br>"
-                });
-        */
-        //    document.getElementById('asistTable').innerHTML = images3 + "</table>";
+        json.body.Items.forEach(item => {
+            images3 += "<lo>"
+            images3 += '<table style="text-align:center; class="egt">' +
+                "<tr>";
+            images3 += `<th>--------------------</th><th style="text-align:center">` + `<a href="` + item.imagen + `">` +
+                item.grupo + `</a></th><th>----------</th>` +
+                "</tr>" +
+                "<tr>" +
+                "<th>" +
+                "Estudiantes" +
+                "</th>" +
+                "<th>" +
+                "Imagen Estudiantes" +
+                "</th>" +
+                "<th>" +
+                "Asistio" +
+                "</th>" +
+                "</tr>"
+            cont = 0
+            item.asistencia.forEach(est => {
+                images3 += "<tr>"
+                images3 += "<th>"
+                images3 += item.nombre[cont]
+                images3 += "</th>"
+                images3 += "<th>"
+                images3 += `<a href="` +
+                    item.ruta[cont] + `">ver</a>`
+                images3 += "</th>"
+                images3 += "<th>"
+                images3 += est
+                images3 += "</th>"
+                images3 += "</tr>"
+                cont++
+            });
+            images3 += "</table><br><br>"
+            images3 += "</lo>"
+        });
+        document.getElementById('asistTable').innerHTML = images3 + "</ul>";
     }
 };
 xhr3.send('');
