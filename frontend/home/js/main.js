@@ -37,7 +37,6 @@ $(function() {
         buttonText: '<i class="zmdi zmdi-chevron-down"></i>',
     });
 
-
     $('#guardar').click(function() {
         var xhr = new XMLHttpRequest();
         var url = "https://t8gc9ume1m.execute-api.us-east-2.amazonaws.com/test3/carga";
@@ -91,6 +90,11 @@ $(function() {
         var data = JSON.stringify({ "user": $('#user2').val(), "extension": "jpg", "sourceBase64": sourcebase64 });
         xhr.send(data);
     });
+
+    $('#back').click(function() {
+        location.href = "../login/index.html";
+    });
+
 });
 var estudiantes = []
 var sourcebase64
