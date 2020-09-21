@@ -73,7 +73,7 @@ $(function() {
 
     $('#guardarEstudiantes').click(function() {
         var xhr = new XMLHttpRequest();
-        var url = "http://18.212.82.46/api/registerStudent";
+        var url = "http://semi1-lb-proyecto1-1129256119.us-east-1.elb.amazonaws.com/api/registerStudent";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
@@ -148,7 +148,7 @@ xhr.onreadystatechange = function() {
 xhr.send('');
 
 var xhr2 = new XMLHttpRequest();
-var url2 = "http://18.212.82.46/api/getStudents";
+var url2 = "http://semi1-lb-proyecto1-1129256119.us-east-1.elb.amazonaws.com/api/getStudents";
 xhr2.open("GET", url2, true);
 xhr2.setRequestHeader("Content-Type", "application/json");
 let images2 = '<ul>';

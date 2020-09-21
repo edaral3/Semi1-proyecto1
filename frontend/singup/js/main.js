@@ -86,7 +86,7 @@ snap.addEventListener("click", function() {
 $(function() {
     $('#ejecutar').click(function() {
         var xhr = new XMLHttpRequest();
-        var url = "http://18.212.82.46/api/signin";
+        var url = "http://semi1-lb-proyecto1-1129256119.us-east-1.elb.amazonaws.com/api/signin";
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.onreadystatechange = function() {
